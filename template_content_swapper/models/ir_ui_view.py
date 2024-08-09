@@ -15,8 +15,8 @@ class IrUiView(models.Model):
         result = super()._render_template(template, values)
         result_str = str(result)
         lang_code = "en_US"
-        request = values.get("request")
-        if request:
+        if values and values.get("request"):
+            request = values.get("request")
             # For views
             lang_code = request.env.lang
         else:
