@@ -13,16 +13,13 @@ class IrUiView(models.Model):
 
     def _render_template(self, template, values=None):
         result = super()._render_template(template, values)
-        if values is None:
-            return result
         result_str = str(result)
-        lang_code = "en_US"
-        request = values.get("request")
-        if request:
+        lang_code = self.env.user.lang
+        if values and values.get("request"):
             # For views
-            lang_code = request.env.lang
+            lang_code = values.get("request").env.lang
         else:
-            # For reports
+            # For reports or views when there is no request environment
             lang_match = re.search(r'data-oe-lang="([^"]+)"', result_str)
             if lang_match:
                 lang_code = lang_match.group(1)
