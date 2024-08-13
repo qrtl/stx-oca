@@ -18,9 +18,9 @@ class IrUiView(models.Model):
         if values and values.get("request"):
             # For views
             lang_code = values.get("request").env.lang
-        elif re.search(r'data-oe-lang="([^"]+)"', result_str):
+        lang_match = re.search(r'data-oe-lang="([^"]+)"', result_str)
+        if lang_match:
             # For reports
-            lang_match = re.search(r'data-oe-lang="([^"]+)"', result_str)
             lang_code = lang_match.group(1)
         view = self.browse(self.get_view_id(template)).sudo()
         content_mappings = (
