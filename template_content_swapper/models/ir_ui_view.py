@@ -13,10 +13,12 @@ class IrUiView(models.Model):
 
     def _render_template(self, template, values=None):
         result = super()._render_template(template, values)
+        if values is None:
+            return result
         result_str = str(result)
         lang_code = "en_US"
-        if values and values.get("request"):
-            request = values.get("request")
+        request = values.get("request")
+        if request:
             # For views
             lang_code = request.env.lang
         else:
