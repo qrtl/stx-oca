@@ -1,6 +1,6 @@
 {
     "name": "Website reCAPTCHA v2 form",
-    "version": "16.0.1.0.0",
+    "version": "15.0.1.0.0",
     "category": "Website",
     "depends": ["web", "auth_signup", "website", "website_recaptcha_v2"],
     "author": """
