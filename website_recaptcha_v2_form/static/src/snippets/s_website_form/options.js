@@ -29,7 +29,7 @@ odoo.define("website_recaptcha_v2_form.form_editor", function (require) {
                 this.$target.find(".s_website_form_submit").before(legal);
             }
         },
-        _computeWidgetState: function (methodName, params) {
+        _computeWidgetState: function (methodName) {
             switch (methodName) {
                 case "toggleRecaptchaV2":
                     return (
