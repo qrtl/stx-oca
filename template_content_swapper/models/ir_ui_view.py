@@ -11,8 +11,8 @@ from odoo import models
 class IrUiView(models.Model):
     _inherit = "ir.ui.view"
 
-    def _render_template(self, template, values=None):
-        result = super()._render_template(template, values)
+    def _render(self, values=None, engine="ir.qweb", minimal_qcontext=False):
+        result = super()._render(values, engine, minimal_qcontext)
         result_str = str(result)
         lang_code = self.env.user.lang
         if values and values.get("request"):
@@ -23,13 +23,12 @@ class IrUiView(models.Model):
             if lang_match:
                 # For reports
                 lang_code = lang_match.group(1)
-        view = self.browse(self.get_view_id(template)).sudo()
         content_mappings = (
             self.env["template.content.mapping"]
             .sudo()
             .search(
                 [
-                    ("template_id", "=", view.id),
+                    ("template_id", "=", self.sudo().id),
                     "|",
                     ("lang", "=", lang_code),
                     ("lang", "=", False),
