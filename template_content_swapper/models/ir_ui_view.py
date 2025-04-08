@@ -12,7 +12,9 @@ class IrUiView(models.Model):
     _inherit = "ir.ui.view"
 
     def _render(self, values=None, engine="ir.qweb", minimal_qcontext=False):
-        result = super()._render(values, engine, minimal_qcontext)
+        result = super()._render(
+            values=values, engine=engine, minimal_qcontext=minimal_qcontext
+        )
         result_str = str(result)
         lang_code = self.env.user.lang
         if values and values.get("request"):
