@@ -28,7 +28,7 @@ class IrUiView(models.Model):
             .sudo()
             .search(
                 [
-                    ("template_id", "=", self.sudo().id),
+                    ("template_id", "=", self.id),
                     "|",
                     ("lang", "=", lang_code),
                     ("lang", "=", False),
