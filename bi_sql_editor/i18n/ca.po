@@ -22,20 +22,14 @@ msgstr ""
 #. module: bi_sql_editor
 #: code:addons/bi_sql_editor/models/bi_sql_view.py:0
 #, python-format
-msgid "%m/%d/%Y %H:%M:%S UTC"
-msgstr "%d/%m/%Y %H:%M:%S UTC"
+msgid "%(model_name)s Access %(full_name)s"
+msgstr ""
 
 #. module: bi_sql_editor
 #: code:addons/bi_sql_editor/models/bi_sql_view.py:0
 #, python-format
 msgid "%s (Copy)"
 msgstr "%s (Còpia)"
-
-#. module: bi_sql_editor
-#: code:addons/bi_sql_editor/models/bi_sql_view.py:0
-#, python-format
-msgid "%s Access %s"
-msgstr "%s Accés %s"
 
 #. module: bi_sql_editor
 #: code:addons/bi_sql_editor/models/bi_sql_view.py:0
@@ -79,6 +73,11 @@ msgid "Available"
 msgstr "Disponible"
 
 #. module: bi_sql_editor
+#: model:ir.model.fields.selection,name:bi_sql_editor.selection__bi_sql_view_field__group_operator__avg
+msgid "Average"
+msgstr ""
+
+#. module: bi_sql_editor
 #: model:ir.model,name:bi_sql_editor.model_bi_sql_view
 msgid "BI SQL View"
 msgstr "Vista BI SQL"
@@ -87,6 +86,21 @@ msgstr "Vista BI SQL"
 #: model:ir.model,name:bi_sql_editor.model_bi_sql_view_field
 msgid "Bi SQL View Field"
 msgstr "Camp de vista Bi SQL"
+
+#. module: bi_sql_editor
+#: model:ir.model.fields,help:bi_sql_editor.field_bi_sql_view__parent_menu_id
+msgid ""
+"By assigning a value to this field before manually creating the UI, you're "
+"overwriting the parent menu on which the menu related to the SQL report will "
+"be created."
+msgstr ""
+
+#. module: bi_sql_editor
+#: model:ir.model.fields,help:bi_sql_editor.field_bi_sql_view_field__group_operator
+msgid ""
+"By default, Odoo will sum the values when grouping. If you wish to alter the "
+"behaviour, choose an alternate Group Operator"
+msgstr ""
 
 #. module: bi_sql_editor
 #: model:ir.model.fields,help:bi_sql_editor.field_bi_sql_view_field__is_group_by
@@ -117,9 +131,14 @@ msgstr ""
 "Text separat per comes. Valors possibles: \"gràfic\", \"pivot\" o \"arbre\""
 
 #. module: bi_sql_editor
+#: model:ir.model.fields,field_description:bi_sql_editor.field_bi_sql_view__computed_action_context
+msgid "Computed Action Context"
+msgstr ""
+
+#. module: bi_sql_editor
 #: model_terms:ir.ui.view,arch_db:bi_sql_editor.view_bi_sql_view_form
-msgid "Context"
-msgstr "Context"
+msgid "Computed Context"
+msgstr ""
 
 #. module: bi_sql_editor
 #: model_terms:ir.ui.view,arch_db:bi_sql_editor.view_bi_sql_view_form
@@ -149,6 +168,11 @@ msgid "Cron Task that will refresh the materialized view"
 msgstr "Tasca Cron que actualitzarà la vista materialitzada"
 
 #. module: bi_sql_editor
+#: model_terms:ir.ui.view,arch_db:bi_sql_editor.view_bi_sql_view_form
+msgid "Custom Context"
+msgstr ""
+
+#. module: bi_sql_editor
 #: model:ir.model.fields,field_description:bi_sql_editor.field_bi_sql_view__size
 msgid "Database Size"
 msgstr "Mida de la base de dades"
@@ -171,8 +195,8 @@ msgstr ""
 "Definiu aquí la restricció d'accés a les dades.\n"
 " Tingueu cura d'utilitzar el nom del camp amb el prefix 'x_'. Es crearà una "
 "\"ir.rule\" global. Per exemple, una regla típica de múltiples empreses és\n"
-"  ['|', ('x_company_id','fill_de', [user.company_id."
-"id]),('x_company_id','=',False)]."
+"  ['|', ('x_company_id','fill_de', [user.company_id.id]),('x_company_id','=',"
+"False)]."
 
 #. module: bi_sql_editor
 #: model:ir.model.fields,field_description:bi_sql_editor.field_bi_sql_view__display_name
@@ -199,6 +223,11 @@ msgstr "Descripció del camp"
 #: model:ir.model.fields,field_description:bi_sql_editor.field_bi_sql_view_field__ttype
 msgid "Field Type"
 msgstr "Tipus de camp"
+
+#. module: bi_sql_editor
+#: model:ir.model,name:bi_sql_editor.model_ir_model_fields
+msgid "Fields"
+msgstr ""
 
 #. module: bi_sql_editor
 #: model:ir.model.fields,help:bi_sql_editor.field_bi_sql_view_field__many2one_model_id
@@ -235,6 +264,11 @@ msgstr "Nom complet de la vista SQL"
 #: model:ir.model.fields,field_description:bi_sql_editor.field_bi_sql_view_field__graph_type
 msgid "Graph Type"
 msgstr "Tipus de gràfic"
+
+#. module: bi_sql_editor
+#: model:ir.model.fields,field_description:bi_sql_editor.field_bi_sql_view_field__group_operator
+msgid "Group Operator"
+msgstr ""
 
 #. module: bi_sql_editor
 #: model:ir.model.fields,field_description:bi_sql_editor.field_bi_sql_view__has_group_changed
@@ -296,9 +330,19 @@ msgid "Materialized Text"
 msgstr "Text materialitzat"
 
 #. module: bi_sql_editor
+#: model:ir.model.fields.selection,name:bi_sql_editor.selection__bi_sql_view_field__group_operator__max
+msgid "Maximum"
+msgstr ""
+
+#. module: bi_sql_editor
 #: model:ir.model.fields.selection,name:bi_sql_editor.selection__bi_sql_view_field__graph_type__measure
 msgid "Measure"
 msgstr "Mesura"
+
+#. module: bi_sql_editor
+#: model:ir.model.fields.selection,name:bi_sql_editor.selection__bi_sql_view_field__group_operator__min
+msgid "Minimum"
+msgstr ""
 
 #. module: bi_sql_editor
 #: model:ir.model.fields,field_description:bi_sql_editor.field_bi_sql_view_field__many2one_model_id
@@ -384,6 +428,11 @@ msgid "Open View"
 msgstr "Obrir vista"
 
 #. module: bi_sql_editor
+#: model:ir.model.fields,field_description:bi_sql_editor.field_bi_sql_view__parent_menu_id
+msgid "Parent Odoo Menu"
+msgstr ""
+
+#. module: bi_sql_editor
 #: model_terms:ir.ui.view,arch_db:bi_sql_editor.view_bi_sql_view_form
 msgid "Preview SQL Expression"
 msgstr "Previsualizar expressió SQL"
@@ -418,11 +467,9 @@ msgstr "Definició de la regla"
 #: code:addons/bi_sql_editor/models/bi_sql_view.py:0
 #, python-format
 msgid ""
-"SQL Error while creating %s VIEW %s :\n"
-" %s"
+"SQL Error while creating %(materialized_text)s VIEW %(view_name)s :\n"
+" %(error)s"
 msgstr ""
-"Error SQL mentre es creava la vista %s %s :\n"
-" %s"
 
 #. module: bi_sql_editor
 #: model:ir.model.fields,field_description:bi_sql_editor.field_bi_sql_view__bi_sql_view_field_ids
@@ -529,6 +576,11 @@ msgstr ""
 "current/static/sql-syntax-lexical.html#SQL-SYNTAX-IDENTIFIERS"
 
 #. module: bi_sql_editor
+#: model:ir.model.fields.selection,name:bi_sql_editor.selection__bi_sql_view_field__group_operator__sum
+msgid "Sum"
+msgstr ""
+
+#. module: bi_sql_editor
 #: model:ir.model.fields,field_description:bi_sql_editor.field_bi_sql_view__technical_name
 msgid "Technical Name"
 msgstr "Nom tècnic"
@@ -567,6 +619,16 @@ msgstr ""
 "Tipus del camp Odoo que es crearà. Deixeu en blanc si no voleu crear un camp "
 "nou. Si està buit, aquest camp no es mostrarà disponible per a la cerca ni "
 "per la funció d'agrupació"
+
+#. module: bi_sql_editor
+#: model_terms:ir.ui.view,arch_db:bi_sql_editor.view_bi_sql_view_form
+msgid "UI Instances"
+msgstr ""
+
+#. module: bi_sql_editor
+#: model_terms:ir.ui.view,arch_db:bi_sql_editor.view_bi_sql_view_form
+msgid "UI Parameters"
+msgstr ""
 
 #. module: bi_sql_editor
 #: model:ir.model.fields.selection,name:bi_sql_editor.selection__bi_sql_view_field__tree_visibility__unavailable
@@ -616,12 +678,6 @@ msgstr "Vistes, acció i menú creats"
 #, python-format
 msgid "You can not create indexes on non materialized views"
 msgstr "No podeu crear índexs en vistes no materialitzades"
-
-#. module: bi_sql_editor
-#: code:addons/bi_sql_editor/models/bi_sql_view.py:0
-#, python-format
-msgid "You can only process this action on SQL Valid items"
-msgstr "Aquesta acció només pot processar-se sobre elements SQL vàlids"
 
 #. module: bi_sql_editor
 #: code:addons/bi_sql_editor/models/bi_sql_view.py:0
@@ -683,6 +739,29 @@ msgstr "seqüència"
 #: model_terms:ir.ui.view,arch_db:bi_sql_editor.view_bi_sql_view_form
 msgid "this will refresh the materialized view"
 msgstr "Això refrescarà la vista materialitzada"
+
+#, python-format
+#~ msgid "%m/%d/%Y %H:%M:%S UTC"
+#~ msgstr "%d/%m/%Y %H:%M:%S UTC"
+
+#, python-format
+#~ msgid "%s Access %s"
+#~ msgstr "%s Accés %s"
+
+#~ msgid "Context"
+#~ msgstr "Context"
+
+#, python-format
+#~ msgid ""
+#~ "SQL Error while creating %s VIEW %s :\n"
+#~ " %s"
+#~ msgstr ""
+#~ "Error SQL mentre es creava la vista %s %s :\n"
+#~ " %s"
+
+#, python-format
+#~ msgid "You can only process this action on SQL Valid items"
+#~ msgstr "Aquesta acció només pot processar-se sobre elements SQL vàlids"
 
 #~ msgid "Draft"
 #~ msgstr "Esborrany"
