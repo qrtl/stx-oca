@@ -1,11 +1,51 @@
 # Copyright 2025 Quartile (https://www.quartile.co)
-# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+
+import logging
 
 from odoo import api, models
+from odoo.tools import safe_eval
+
+_logger = logging.getLogger(__name__)
 
 
 class MailMessage(models.Model):
     _inherit = "mail.message"
+
+    def _get_reply_stage(self, res, config):
+        self.ensure_one()
+        reply_stage = self.env[config.reply_stage_model_name].search(
+            [("id", "=", config.reply_stage_id)]
+        )
+        if config.parent_stage_field_id:
+            parent_field_rec = getattr(res, config.parent_field_id.name, None)
+            allowed_stages = getattr(
+                parent_field_rec,
+                config.parent_stage_field_id.name,
+                self.env[config.parent_stage_field_id.relation],
+            )
+            reply_stage = reply_stage.filtered(lambda stage: stage in allowed_stages)
+        return reply_stage
+
+    def _get_mail_reply_config(self, res, res_model):
+        self.ensure_one()
+        configs = self.env["mail.reply.config"].search(
+            [("model_id", "=", res_model.id)], order="sequence ASC"
+        )
+        for config in configs:
+            reply_stage = self._get_reply_stage(res, config)
+            if not reply_stage:
+                continue
+            domain = []
+            if config.domain:
+                try:
+                    domain = safe_eval.safe_eval(config.domain)
+                except Exception as e:
+                    _logger.warning("Invalid domain: %s (%s)", config.domain, e)
+                    continue
+            if not domain or res.filtered_domain(domain):
+                return config, reply_stage
+        return None, None
 
     @api.model_create_multi
     def create(self, values_list):
@@ -23,47 +63,10 @@ class MailMessage(models.Model):
             )
             if not res_model:
                 continue
-            resource = self.env[message.model].browse(message.res_id)
-            config_records = self.env["mail.reply.config"].search(
-                [("model_id", "=", res_model.id)]
-            )
-            matched_config = None
-            parent_field_rec = None
-            for config in config_records:
-                if config.parent_field_id:
-                    parent_field_rec = getattr(
-                        resource, config.parent_field_id.name, None
-                    )
-                    if (
-                        parent_field_rec
-                        and getattr(parent_field_rec, "name", None)
-                        == config.parent_field_value
-                    ):
-                        matched_config = config
-                        break
-                else:
-                    matched_config = config
-            if not matched_config:
+            res = self.env[message.model].browse(message.res_id)
+            config, reply_stage = message._get_mail_reply_config(res, res_model)
+            if not config:
                 continue
-            current_stage = getattr(
-                resource, matched_config.reply_stage_field_id.name, None
-            )
-            if current_stage == matched_config.remain_stage:
-                continue
-            reply_stage_rec = self.env[
-                matched_config.reply_stage_field_id.relation
-            ].search([("name", "=", matched_config.reply_stage)])
-            if matched_config.parent_stage_field_id:
-                allowed_stages = getattr(
-                    parent_field_rec,
-                    matched_config.parent_stage_field_id.name,
-                    self.env[matched_config.parent_stage_field_id.relation],
-                )
-                reply_stage_rec = reply_stage_rec.filtered(
-                    lambda stage: stage in allowed_stages
-                )
-            if reply_stage_rec:
-                resource.sudo().write(
-                    {matched_config.reply_stage_field_id.name: reply_stage_rec.id}
-                )
+            if reply_stage:
+                res.sudo().write({config.reply_stage_field_id.name: reply_stage.id})
         return messages

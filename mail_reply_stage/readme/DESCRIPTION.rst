@@ -1,1 +1,2 @@
-This module has the feature to automatically update the stage of the record when a non-internal user sends an update to the record.
+This module provides a feature that automatically updates the stage of a record when a
+non-internal user sends a mail message to that record.
